@@ -5,3 +5,5 @@ if b=='+':
     print(a+c)
 elif b=='-':
     print(a-c)
+elif b=='*':
+    print(a*c)

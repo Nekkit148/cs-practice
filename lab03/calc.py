@@ -1,4 +1,7 @@
 a=int(input())
 b=input()
 c=int(input())
-print(a+c)
+if b=='+':
+    print(a+c)
+elif b=='-':
+    print(a-c)

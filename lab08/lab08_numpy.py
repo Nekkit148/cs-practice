@@ -86,3 +86,15 @@ changed_matrix[:, -1] = -1
 changed_matrix[1:4, 1:4] = 100   
 print("changed_matrix:\n", changed_matrix)
 print("исходная matrix:\n", matrix)
+
+# 6
+
+numbers = np.arange(12)         
+table = numbers.reshape(3, 4)
+transposed = table.T
+
+print("numbers.shape    =", numbers.shape)
+print("table.shape      =", table.shape)
+print("transposed.shape =", transposed.shape)
+print("table:\n", table)
+print("transposed:\n", transposed)

@@ -2,10 +2,7 @@ EVELS = ("DEBUG", "INFO", "WARNING", "ERROR")
 
 
 def parse_event(line: str) -> dict:
-    """Строка журнала «время уровень сообщение» -> словарь.
-
-    Негодная строка -> ValueError.
-    """
+   
     parts = line.rstrip("\n").split(" ", 2)
     if len(parts) < 3:
         raise ValueError(f"негодная строка: {line!r}")

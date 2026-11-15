@@ -25,3 +25,22 @@ def count_levels(lines) -> dict:
             counts[level] = counts.get(level, 0) + 1
     return counts
 
+def top_errors(lines, n: int) -> list:
+    freq = {}
+    for line in lines:
+        if not line.strip():
+            continue
+        try:
+            event = parse_event(line)
+        except ValueError:
+            continue
+        if event["level"] != "ERROR":
+            continue
+        msg = event["message"]
+        freq[msg] = freq.get(msg, 0) + 1
+
+    # сортировка: сначала по убыванию частоты, затем по алфавиту
+    ordered = sorted(freq.items(), key=lambda kv: (-kv[1], kv[0]))
+    return [[msg, cnt] for msg, cnt in ordered[:n]]
+
+

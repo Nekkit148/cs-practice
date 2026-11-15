@@ -1,5 +1,6 @@
 import numpy as np
 
+# 1
 hours = np.arange(0, 22, 3)          
 line = np.linspace(0, 1, 5)
 zeros = np.zeros(6, dtype=int)       
@@ -16,3 +17,11 @@ print("line          =", line)
 print("zeros         =", zeros)
 print("unknown_table =\n", unknown_table)
 print("identity      =\n", identity)
+
+# 2
+
+print("третий элемент             :", hours[2])
+print("последний элемент          :", hours[-1])
+print("элементы с индексами 2–5   :", hours[2:6])
+print("каждый второй элемент      :", hours[::2])
+print("массив в обратном порядке  :", hours[::-1])

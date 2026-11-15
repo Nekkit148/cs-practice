@@ -62,3 +62,15 @@ print("строки 1–3, столбцы 2–4:\n", middle, "\nshape =", middle
 
 corner = matrix[-2:, -2:]
 print("угловой блок 2×2 справа снизу:\n", corner, "\nshape =", corner.shape)
+
+# 5
+
+vector = np.array([10, 20, 30, 40, 50])
+vector[1:4] = 0
+print("vector после замены 1:4 на 0:", vector)
+
+small_matrix = np.arange(1, 10).reshape(3, 3)
+small_matrix[0, :] = -1
+small_matrix[1:, 1:] = 9
+print("small_matrix:\n", small_matrix)
+

@@ -39,8 +39,19 @@ def top_errors(lines, n: int) -> list:
         msg = event["message"]
         freq[msg] = freq.get(msg, 0) + 1
 
-    # сортировка: сначала по убыванию частоты, затем по алфавиту
     ordered = sorted(freq.items(), key=lambda kv: (-kv[1], kv[0]))
     return [[msg, cnt] for msg, cnt in ordered[:n]]
 
 
+def format_report(counts: dict, errors: list) -> str:
+    out = ["Отчёт по журналу", ""]
+
+    for level in sorted(counts):
+        out.append(f"{level}: {counts[level]}")
+
+    out.append("")
+    out.append("Частые ошибки:")
+    for msg, cnt in errors:
+        out.append(f"- {msg} — {cnt}")
+
+    return "\n".join(out) + "\n"

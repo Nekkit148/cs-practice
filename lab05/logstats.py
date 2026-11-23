@@ -1,17 +1,19 @@
-EVELS = ("DEBUG", "INFO", "WARNING", "ERROR")
+LEVELS = {"DEBUG", "INFO", "WARNING", "ERROR"}
 
 
 def parse_event(line: str) -> dict:
-   
-    parts = line.rstrip("\n").split(" ", 2)
+
+    parts = line.strip().split(maxsplit=2)
     if len(parts) < 3:
         raise ValueError(f"негодная строка: {line!r}")
     time, level, message = parts
     if level not in LEVELS:
-        raise ValueError(f"незнакомый уровень: {level!r}")
+        raise ValueError(f"неизвестный уровень: {level!r}")
     return {"time": time, "level": level, "message": message}
 
+
 def count_levels(lines) -> dict:
+
     counts = {}
     for line in lines:
         if not line.strip():
@@ -20,13 +22,15 @@ def count_levels(lines) -> dict:
             event = parse_event(line)
         except ValueError:
             counts["BROKEN"] = counts.get("BROKEN", 0) + 1
-        else:
-            level = event["level"]
-            counts[level] = counts.get(level, 0) + 1
+            continue
+        key = event["level"]
+        counts[key] = counts.get(key, 0) + 1
     return counts
 
+
 def top_errors(lines, n: int) -> list:
-    freq = {}
+
+    counter = {}
     for line in lines:
         if not line.strip():
             continue
@@ -36,22 +40,19 @@ def top_errors(lines, n: int) -> list:
             continue
         if event["level"] != "ERROR":
             continue
-        msg = event["message"]
-        freq[msg] = freq.get(msg, 0) + 1
+        message = event["message"]
+        counter[message] = counter.get(message, 0) + 1
 
-    ordered = sorted(freq.items(), key=lambda kv: (-kv[1], kv[0]))
-    return [[msg, cnt] for msg, cnt in ordered[:n]]
+    pairs = sorted(counter.items(), key=lambda kv: (-kv[1], kv[0]))
+    return [[message, count] for message, count in pairs[:n]]
 
 
 def format_report(counts: dict, errors: list) -> str:
-    out = ["Отчёт по журналу", ""]
-
+    lines = ["Отчёт по журналу", ""]
     for level in sorted(counts):
-        out.append(f"{level}: {counts[level]}")
-
-    out.append("")
-    out.append("Частые ошибки:")
-    for msg, cnt in errors:
-        out.append(f"- {msg} — {cnt}")
-
-    return "\n".join(out) + "\n"
+        lines.append(f"{level}: {counts[level]}")
+    lines.append("")
+    lines.append("Частые ошибки:")
+    for message, count in errors:
+        lines.append(f"- {message} — {count}")
+    return "\n".join(lines) + "\n"

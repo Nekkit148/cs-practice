@@ -1,7 +1,7 @@
 from logstats import count_levels, top_errors, format_report
 
 
-def main() -> None:
+def main():
     path = input().strip()
 
     with open(path, encoding="utf-8") as log:

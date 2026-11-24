@@ -10,3 +10,12 @@ def deepest_path(paths: list[str]) -> str:
     if not paths:
         return ""
     return min(paths, key=lambda p: (-p.count("/"), p))
+
+def human_size(n_bytes: int) -> str:
+    units = ["Б", "КБ", "МБ", "ГБ", "ТБ"]
+    size = float(n_bytes)
+    i = 0
+    while size >= 1024 and i < len(units) - 1:
+        size /= 1024
+        i += 1
+    return f"{n_bytes} Б" if i == 0 else f"{size:.1f} {units[i]}"
